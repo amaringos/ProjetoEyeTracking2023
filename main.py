@@ -2,6 +2,7 @@ import cv2
 import dlib
 import numpy as np
 from math import hypot
+import pyautogui
 
 # faz reconhecimento da webcam
 cap = cv2.VideoCapture(0)
@@ -107,13 +108,16 @@ while True:
 
         if gaze_ratio > 1.4:
             cv2.putText(frame, "ESQUERDA", (50, 100), font, 1, (0, 0, 255), 3)
+            pyautogui.moveRel(-40, 0, duration = 0.25)
         elif gaze_ratio < 0.6:
             cv2.putText(frame, "DIREITA", (50, 100), font, 1, (0, 0, 255), 3)
+            pyautogui.moveRel(40, 0, duration = 0.25)
         elif 0.6 < gaze_ratio < 1.1:
             cv2.putText(frame, "CENTRO", (50, 100), font, 1, (0, 0, 255), 3)
         elif gaze_ratio > 1.1:
             cv2.putText(frame, "CIMA", (50, 100), font, 1, (0, 0, 255), 3)
-
+            pyautogui.moveRel(0, -40, duration = 0.25)
+  
 
     # abre uma janela para a webcam no tamanho 640x360
     cv2.imshow("Camera", frame)
